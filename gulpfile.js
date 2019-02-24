@@ -14,6 +14,8 @@ const tar = require('gulp-tar');
 const log = require('gulplog');
 const merge = require('merge-stream');
 
+const removeUnnecessaryModuleExports = require('./gulp/rollup-plugin-remove-unnecessary-module-exports');
+
 const metadata = (() => {
   try {
     return JSON.parse(fs.readFileSync('./src/manifest.json', { encoding: 'utf8' }));
@@ -93,7 +95,8 @@ function task(options = {}) {
         format: 'cjs',
         plugins: [
           resolve(),
-          commonjs({ ignore: ['events'] })
+          commonjs({ ignore: ['events'] }),
+          removeUnnecessaryModuleExports()
         ]
       })
       .pipe(source('main.js'))
