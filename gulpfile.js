@@ -74,7 +74,7 @@ class TransformManifest extends Transform {
   }
 }
 
-function build(options = {}) {
+function task(options = {}) {
   const { dev = true } = options;
 
   return function () {
@@ -141,5 +141,8 @@ function build(options = {}) {
   }
 }
 
-gulp.task('prod', build({ dev: false }));
-gulp.task('dev', build({ dev: true }));
+gulp.task('prod', task({ dev: false }));
+gulp.task('dev', function () {
+  gulp.watch('src/**/*', { ignoreInitial: false }, gulp.task('build:dev'));
+});
+gulp.task('build:dev', task({ dev: true }));

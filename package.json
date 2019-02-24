@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "npx gulp dev",
-    "build": "npx gulp build"
+    "build": "npx gulp prod"
   },
   "author": "",
   "license": "",
